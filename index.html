@@ -452,13 +452,14 @@
         });
     })();
 
-    // Lógica de Música de Fondo (YouTube API)
+   // Lógica de Música de Fondo (YouTube API)
     const welcomeScreen = document.getElementById('welcome-screen');
     const mainContent = document.getElementById('main-content');
     
     // AQUÍ ESTÁ EL ID DE TU NUEVA CANCIÓN
     const VIDEO_ID = 'M-AMu_iAcf8'; 
     let player, isPlaying = false;
+    let playOnReady = false; // NUEVO: Memoria por si hacen clic muy rápido
 
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -489,6 +490,13 @@
 
     function onPlayerReady(event) {
         event.target.setVolume(50); // Volumen a la mitad para que no asuste
+        
+        // NUEVO: Si le dieron a "Abrir" mientras YouTube cargaba, dale play ahora
+        if (playOnReady) {
+            event.target.playVideo();
+            isPlaying = true;
+            updateMusicIcon();
+        }
     }
 
     function onPlayerStateChange(event) {
@@ -503,6 +511,9 @@
             player.playVideo();
             isPlaying = true;
             updateMusicIcon();
+        } else {
+            // NUEVO: Si YouTube aún no carga, guarda la orden para cuando esté listo
+            playOnReady = true;
         }
         
         // 2. Transición suave
