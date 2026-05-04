@@ -477,7 +477,8 @@
                 'playlist': VIDEO_ID, // Mantiene el bucle infinito
                 'modestbranding': 1,
                 'playsinline': 1,
-                'enablejsapi': 1
+                'enablejsapi': 1,
+                'origin': window.location.origin
             },
             events: {
                 'onReady': onPlayerReady,
