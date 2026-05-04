@@ -1,1 +1,563 @@
+<<<<<<< HEAD
 
+=======
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda de Jose Luis & Jennifer</title>
+    <meta property="og:description" content="¡Te invitamos a celebrar nuestra unión el 23 de Mayo del 2026!" />
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style> 
+        :root {
+            --gold: #c5a059;
+            --cream: #fffdfa;
+            --dark: #2d2d2d;
+            --nude: #ebe3db;
+            --wedding-gold: #B69A54;
+        }
+        body {
+            background-color: var(--cream);
+            color: var(--dark); 
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-body-sans { font-family: 'Montserrat', sans-serif; }
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+        
+        /* PANTALLA DE APERTURA */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+        }
+        .welcome-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+        }
+
+        /* BOTÓN FLOTANTE MÚSICA */
+        #music-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 40;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: var(--gold);
+            animation: pulse-gold 2s infinite;
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        /* SECCIONES DE TU DISEÑO */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('imagenes/portada.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .section-padding { padding: 80px 20px; }
+        .divider {
+            width: 80px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 20px auto;
+        }
+        .btn-gold {
+            background-color: var(--gold);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .btn-gold:hover {
+            background-color: #b38f4d;
+            letter-spacing: 3px;
+        }
+        .card-gift {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+        .card-gift:hover {
+            transform: translateY(-5px);
+        }
+        .section-confirm-rsvp {
+            background-color: var(--nude);
+            color: var(--dark);
+        }
+        .btn-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: center;
+            vertical-align: middle;
+            padding: 2px;
+            margin-left: 4px;
+            border: none;
+            border-radius: 4px;
+            background: transparent;
+            color: var(--gold);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .btn-copy:hover {
+            background: rgba(197, 160, 89, 0.12);
+        }
+        .btn-copy:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- REPRODUCTOR DE YOUTUBE (TOTALMENTE INVISIBLE) -->
+    <div id="youtube-player-container" style="position: fixed; top: -100px; left: -100px; width: 1px; height: 1px; overflow: hidden; pointer-events: none; opacity: 0.01;">
+        <div id="youtube-player"></div>
+    </div>
+
+    <!-- PANTALLA DE APERTURA -->
+    <div id="welcome-screen">
+        <div class="welcome-overlay"></div>
+        <div class="relative z-10 text-center px-6 w-full max-w-sm">
+            <div class="bg-white/10 p-10 rounded-[2.5rem] backdrop-blur-md border border-white/20 shadow-2xl">
+                <h2 class="font-cormorant text-lg mb-4 text-white uppercase tracking-[0.2em] opacity-80">Nuestra Boda Civil</h2>
+                <div class="space-y-3 mb-10">
+                    <h1 class="font-cormorant text-4xl text-white drop-shadow-lg leading-tight">Jennifer<br>&<br>Jose Luis</h1>
+                </div>
+                <button onclick="openInvitation()" class="bg-[#c5a059] text-white font-cormorant text-xl px-10 py-4 rounded-full flex items-center justify-center mx-auto gap-3 shadow-xl w-full transform transition active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"/><path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"/></svg>
+                    Abrir Invitación
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL DE LA INVITACIÓN -->
+    <div id="main-content" style="display: none; opacity: 0; transition: opacity 1s ease-in-out;">
+        
+        <!-- BOTÓN FLOTANTE MÚSICA (Para pausar si lo desean) -->
+        <button id="music-btn" onclick="toggleMusic()">
+            <svg id="icon-pause" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            <svg id="icon-play" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+        </button>
+
+        <!-- TU DISEÑO ORIGINAL A PARTIR DE AQUÍ -->
+        <header class="hero-section">
+            <p class="uppercase tracking-[0.5em] mb-6 text-[1.875rem] sm:text-[2.1875rem] font-light">Nuestra Boda</p>
+            <div class="space-y-2">
+                <h1 class="font-serif text-[2.25rem] md:text-[3.6rem] text-white opacity-90">Jose Luis</h1>
+                <p class="font-serif text-[1.6875rem] md:text-[2.8125rem] text-white">&</p>
+                <h1 class="font-serif text-[2.25rem] md:text-[3.6rem] text-white opacity-90">Jennifer</h1>
+            </div>
+            <div class="divider" style="width: 150px; background: white;"></div>
+            <br><br><br><br><br><br><br>
+            <p class="text-xl md:text-3xl mt-4 font-light tracking-widest">23 Mayo 2026</p>
+            <p class="mt-2 opacity-80 text-lg"></p>
+        </header>
+
+        <!-- Palabras Bonitas debajo de la foto/hero -->
+        <section class="py-16 px-6 bg-white text-center">
+            <div class="max-w-3xl mx-auto">
+                <p class="font-serif text-xl md:text-2xl italic leading-relaxed text-stone-700">
+                    "El amor no consiste en mirarse el uno al otro, sino en mirar juntos en la misma dirección. 
+                    Hoy comenzamos el viaje más hermoso de nuestras vidas y nos hace inmensamente felices compartir 
+                    este primer paso con ustedes."
+                </p>
+                <div class="mt-6 flex justify-center items-center gap-4">
+                    <span class="h-[1px] w-12 bg-stone-200"></span>
+                    <span class="text-[var(--gold)]">❤</span>
+                    <span class="h-[1px] w-12 bg-stone-200"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding max-w-5xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-4xl mb-12 italic text-[var(--gold)]">"Dos almas, un mismo camino."</h2>
+            
+            <div class="grid md:grid-cols-2 gap-16 mt-16 px-6 text-center">
+                <div>
+                    <h3 class="uppercase tracking-widest text-sm font-bold mb-6 border-b border-gray-100 pb-4">Con el amor de nuestros padres</h3>
+                    <div class="space-y-6 text-gray-600 font-body-sans">
+                        <div>
+                            <p class="text-[var(--gold)] text-xs uppercase tracking-widest mb-1">Padres de la Novia</p>
+                            <p>Ursula Patricia Vicente Vara</p>
+                            <p>Cesar Fidel Pérez</p>
+                        </div>
+                        <div>
+                            <p class="text-[var(--gold)] text-xs uppercase tracking-widest mb-1">Padres del Novio</p>
+                            <p>Paulina Huashuayo Castro</p>
+                            <p>Hugo Melchor Misagel Vega</p>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-sm italic font-body-sans">"Gracias por ser nuestro cimiento y guía."</p>
+                </div>
+                <div>
+                    <h3 class="uppercase tracking-widest text-sm font-bold mb-6 border-b border-gray-100 pb-4">Nuestros Testigos</h3>
+                    <div class="space-y-4 text-gray-600 font-body-sans">
+                        <p>Danissa Quispe Cespedes</p>
+                        <p>Ricardo Felix Pumapillo Zurita</p>
+                    </div>
+                    <p>
+                        <br>
+                        Agradecemos a quienes han aceptado ser testigos de nuestra unión y acompañarnos en el inicio de esta nueva etapa.
+                    </p>
+                    
+                    <p class="mt-6 text-sm italic font-body-sans">"Su presencia da fe de nuestra historia."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-stone-50">
+            <div class="max-w-6xl mx-auto px-4 text-center">
+                <div class="max-w-lg mx-auto mb-16">
+                    <div class="bg-white p-10 border-b-2 border-[var(--gold)] shadow-sm">
+                        <div class="flex justify-center items-center gap-6 text-[var(--gold)] text-4xl mb-4" aria-hidden="true">
+                            <span title="Vestido">👗</span>
+                            <span title="Terno / traje">🤵</span>
+                        </div>
+                        <h3 class="font-serif text-2xl mb-4">Código de vestimenta</h3>
+                        <p class="font-semibold text-lg">Formal</p>
+                        <br>
+                        <p class="text-gray-600 italic font-body-sans">Vestido y terno para un día especial con nosotros.</p>
+                        <p class="mt-4 text-sm text-gray-400 italic">Agradecemos respetar el dress code y evitar vestido color blanco.</p>
+                    </div>
+                </div>
+
+                <h2 class="font-serif text-4xl mb-3 text-stone-800">Recepción</h2>
+                <p class="text-gray-600 text-[1.5rem] md:text-[1.6875rem] font-light tracking-wide">23 de Mayo del 2026</p>
+                <p class="text-[var(--gold)] font-semibold text-[1.75rem] uppercase tracking-[0.2em] mt-2 leading-tight">2:30 PM</p>
+                <div class="divider"></div>
+
+                <div class="mt-12 max-w-lg mx-auto">
+                    <div class="bg-white p-10 border-b-2 border-[var(--gold)] shadow-sm">
+                        <div class="text-[var(--gold)] text-4xl mb-4">🥂</div>
+                        <h3 class="font-serif text-2xl mb-4">Ubicación</h3>
+                        <p class="text-gray-500 uppercase tracking-tighter text-sm mb-2">Los esperamos en:</p>
+                        <br>
+                        <p class="text-gray-600 italic font-body-sans"><strong class="font-bold">Jirón Piura 716, La Perla.</strong></p>
+                        <p class="mt-4 text-sm text-gray-400 italic">Acompáñanos a brindar por este nuevo comienzo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="w-full h-[450px] relative border-y border-gray-100">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.832961819777!2d-77.11306382414742!3d-12.068222042013892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cb9382226259%3A0xc07a3dfc78be8c2b!2sJr.%20Piura%20716%2C%20La%20Perla%2007016!5e0!3m2!1ses-419!2spe!4v1714420000000!5m2!1ses-419!2spe" 
+                width="100%" height="100%" style="border:0; filter: grayscale(0.5);" allowfullscreen="" loading="lazy">
+            </iframe>
+            <div class="absolute inset-0 pointer-events-none bg-black/5"></div>
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-auto">
+                <a href="https://www.google.com/maps/search/?api=1&query=Jirón+Piura+716+La+Perla" target="_blank" class="btn-gold shadow-2xl">Cómo llegar</a>
+            </div>
+        </section>    
+
+        <section class="section-padding text-center bg-white">
+            <h2 class="font-serif text-4xl mb-8 text-stone-800">Sugerencias de Regalo</h2>
+            <div class="divider"></div>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-12 text-[1.080625rem] leading-relaxed px-4">
+                El mejor regalo es que estés presente en este día tan especial, pero si deseas darnos un obsequio tenemos estas opciones:
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+                <div class="card-gift">
+                    <div class="text-[var(--gold)] text-3xl mb-4">🏠</div>
+                    <h3 class="font-bold uppercase text-[0.825rem] tracking-widest mb-3">Para nuestro futuro hogar.</h3>
+                    <p class="text-gray-500 text-[0.9625rem] leading-relaxed">
+                        Si deseas apoyarnos a equipar nuestro nuevo hogar, cualquier detalle para la casa será bienvenido.
+                    </p>
+                </div>
+
+                <div class="card-gift">
+                    <div class="text-[var(--gold)] mb-4 flex justify-center" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect width="5" height="5" x="3" y="3" rx="1"/>
+                            <rect width="5" height="5" x="16" y="3" rx="1"/>
+                            <rect width="5" height="5" x="3" y="16" rx="1"/>
+                            <path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold uppercase text-xs tracking-widest mb-3"></h3>
+                    <p class="text-gray-500 text-[0.9625rem] leading-relaxed">
+                        Si deseas apoyarnos para nuestros futuros proyectos, cualquier apoyo sera bienvenido:
+                    </p>
+                    <p class="text-gray-500 text-[0.9625rem] leading-relaxed">
+                    <br><strong>Yape / Plin</strong>
+                    <br><span class="inline-flex items-center gap-1 flex-wrap justify-center"><strong>923902976</strong><button type="button" class="btn-copy shrink-0 px-1" data-copy-target="923902976" aria-label="Copiar número 923902976" title="Copiar número"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="text-[10px] text-gray-500 font-normal whitespace-nowrap">(copiar)</span></button></span>
+                    <br>Jose Misagel
+                    <br>
+                    <br><strong>Yape:</strong>
+                    <br><span class="inline-flex items-center gap-1 flex-wrap justify-center"><strong>946130954</strong><button type="button" class="btn-copy shrink-0 px-1" data-copy-target="946130954" aria-label="Copiar número 946130954" title="Copiar número"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="text-[10px] text-gray-500 font-normal whitespace-nowrap">(copiar)</span></button></span>
+                    <br>Jennifer Fidel 
+                    </p>
+
+                </div>
+
+                <div class="card-gift">
+                    <div class="text-[var(--gold)] text-3xl mb-4">💳</div>
+                    <h3 class="font-bold uppercase text-[0.825rem] tracking-widest mb-3">Transferencias</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        <br>
+                        <span class="font-semibold text-gray-600 block mb-2">BCP</span>
+                        N° Cuenta: <span class="inline-flex items-center gap-1 flex-wrap justify-center"><strong>19392212564002</strong><button type="button" class="btn-copy shrink-0 px-1" data-copy-target="19392212564002" aria-label="Copiar número de cuenta BCP" title="Copiar número de cuenta"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="text-[10px] text-gray-500 font-normal whitespace-nowrap">(copiar)</span></button></span><br>
+                        CCI: <span class="inline-flex items-center gap-1 flex-wrap justify-center"><strong>00219319221256400213</strong><button type="button" class="btn-copy shrink-0 px-1" data-copy-target="00219319221256400213" aria-label="Copiar CCI de BCP" title="Copiar CCI"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="text-[10px] text-gray-500 font-normal whitespace-nowrap">(copiar)</span></button></span>
+                    </p>
+                    
+                    <br>
+                    <p class="text-gray-500 text-sm leading-relaxed mt-4">
+                        <span class="font-semibold text-gray-600 block mb-2">INTERBANK</span>
+                        N° Cuenta: <span class="inline-flex items-center gap-1 flex-wrap justify-center"><strong>093 3203252302</strong><button type="button" class="btn-copy shrink-0 px-1" data-copy-target="0933203252302" aria-label="Copiar número de cuenta Interbank" title="Copiar número de cuenta"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="text-[10px] text-gray-500 font-normal whitespace-nowrap">(copiar)</span></button></span><br>
+                        CCI: <span class="inline-flex items-center gap-1 flex-wrap justify-center"><strong>00309301320325230220</strong><button type="button" class="btn-copy shrink-0 px-1" data-copy-target="00309301320325230220" aria-label="Copiar CCI de Interbank" title="Copiar CCI"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="text-[10px] text-gray-500 font-normal whitespace-nowrap">(copiar)</span></button></span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding section-confirm-rsvp text-center">
+            <h2 class="font-serif text-4xl mb-8 text-stone-800">Confirmación de Asistencia</h2>
+            <p class="text-stone-800 font-normal not-italic">
+                Agradecemos confirmar su asistencia 
+                <br>hasta el <span class="mb-10 text-stone-600 max-w-md mx-auto font-light italic"> Lunes 11 de Mayo del 2026</span> <br>completando el siguiente formulario:
+            </p>
+            <br>
+            <br>
+
+            <a href="https://forms.gle/vo918Xc5VhDcoLBp7" target="_blank" class="btn-gold !bg-white !text-black border-none hover:!bg-[var(--gold)] hover:!text-white">
+                <strong>Abrir Formulario de Confirmación</strong>
+            </a>
+        </section>
+
+        <section class="section-padding text-center bg-stone-50 border-t border-stone-100">
+            <div class="max-w-2xl mx-auto px-4">
+                <h3 class="font-serif text-3xl mb-6 italic text-stone-800">¡Gracias por ser parte de nuestra historia!</h3>
+                <p class="text-gray-600 leading-relaxed italic">
+                    Estamos ansiosos por celebrar este día tan especial rodeados de las personas que más queremos. Gracias por compartir nuestra alegría y por acompañarnos en el inicio de este nuevo capítulo.
+                </p>
+                <div class="mt-8 text-[var(--gold)] text-2xl">✨</div>
+            </div>
+        </section>
+
+        <footer class="py-20 text-center">
+            <p class="font-serif text-2xl mb-4 italic text-stone-600">Con amor:</p>
+            <h2 class="font-serif text-[2.25rem] text-[var(--gold)]">Jose Luis & Jennifer</h2>
+        </footer>
+    </div>
+
+    <!-- SCRIPT COPIAR TEXTO Y REPRODUCTOR YOUTUBE -->
+    <script>
+    (function () {
+        // Lógica de "Copiar al Portapapeles"
+        function fallbackCopy(text) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+            } finally {
+                document.body.removeChild(ta);
+            }
+        }
+        document.querySelectorAll('button[data-copy-target]').forEach(function (btn) {
+            var restoreAria = btn.getAttribute('aria-label') || '';
+            btn.addEventListener('click', function () {
+                var text = btn.getAttribute('data-copy-target');
+                var svgHtml = btn.innerHTML;
+                var done = function () {
+                    btn.innerHTML = svgHtml;
+                    if (restoreAria) {
+                        btn.setAttribute('aria-label', restoreAria);
+                    }
+                };
+                var ok = function () {
+                    btn.innerHTML = '<span class="text-xs font-semibold" style="color:#15803d" aria-hidden="true">✓</span>';
+                    btn.setAttribute('aria-label', 'Copiado');
+                    setTimeout(done, 1600);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(ok).catch(function () {
+                        try {
+                            fallbackCopy(text);
+                            ok();
+                        } catch (e) {
+                            done();
+                        }
+                    });
+                } else {
+                    try {
+                        fallbackCopy(text);
+                        ok();
+                    } catch (e) {
+                        done();
+                    }
+                }
+            });
+        });
+    })();
+
+   // Lógica de Música de Fondo (YouTube API)
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const mainContent = document.getElementById('main-content');
+    
+    // AQUÍ ESTÁ EL ID DE TU NUEVA CANCIÓN
+    const VIDEO_ID = 'M-AMu_iAcf8'; 
+    let player, isPlaying = false;
+    let playOnReady = false; // NUEVO: Memoria por si hacen clic muy rápido
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtube-player', {
+            height: '100',
+            width: '100',
+            videoId: VIDEO_ID,
+            playerVars: {
+                'autoplay': 0,
+                'controls': 0,
+                'loop': 1,
+                'playlist': VIDEO_ID, // Mantiene el bucle infinito
+                'modestbranding': 1,
+                'playsinline': 1,
+                'enablejsapi': 1,
+                'origin': window.location.origin
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.setVolume(50); // Volumen a la mitad para que no asuste
+        
+        // NUEVO: Si le dieron a "Abrir" mientras YouTube cargaba, dale play ahora
+        if (playOnReady) {
+            event.target.playVideo();
+            isPlaying = true;
+            updateMusicIcon();
+        }
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.ENDED) {
+            player.playVideo(); // Forzar bucle
+        }
+    }
+
+    function openInvitation() {
+        // 1. Iniciar la canción al hacer clic
+        if (player && typeof player.playVideo === 'function') {
+            player.playVideo();
+            isPlaying = true;
+            updateMusicIcon();
+        } else {
+            // NUEVO: Si YouTube aún no carga, guarda la orden para cuando esté listo
+            playOnReady = true;
+        }
+        
+        // 2. Transición suave
+        welcomeScreen.style.opacity = '0';
+        welcomeScreen.style.visibility = 'hidden';
+        
+        setTimeout(() => {
+            welcomeScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+            setTimeout(() => {
+                mainContent.style.opacity = '1';
+                window.scrollTo(0, 0);
+            }, 50);
+        }, 1000);
+    }
+
+    function toggleMusic() {
+        if (!player) return;
+        if (isPlaying) {
+            player.pauseVideo();
+            isPlaying = false;
+        } else {
+            player.playVideo();
+            isPlaying = true;
+        }
+        updateMusicIcon();
+    }
+
+    function updateMusicIcon() {
+        const iconPlay = document.getElementById('icon-play');
+        const iconPause = document.getElementById('icon-pause');
+        if (isPlaying) {
+            iconPlay.classList.add('hidden');
+            iconPause.classList.remove('hidden');
+        } else {
+            iconPlay.classList.remove('hidden');
+            iconPause.classList.add('hidden');
+        }
+    }
+    </script>
+
+</body>
+</html>
+>>>>>>> 83b5291 (1)
